@@ -31,14 +31,31 @@ public class TotoSzolgaltatas extends Fordulo
                  this.setEv(Integer.parseInt(st[0]));
                  this.setHet(Integer.parseInt(st[1]));
                  this.setForduloAHeten(Integer.parseInt(st[2]));
-                 String[]st2=st[3].split(".");
-                 this.setDatum(LocalDate.of(Integer.parseInt(st2[0]),Integer.parseInt(st2[1]),Integer.parseInt(st2[2])));
+                 if(st[3].equals(""))
+                 {
+                     if (Integer.parseInt(st[2])==1)
+                     {
+                         this.setDatum(LocalDate.ofYearDay(Integer.parseInt(st[0]),(Integer.parseInt(st[1])*7-6)));
+                     }
+                     else if(Integer.parseInt(st[2])==2)
+                     {
+                         this.setDatum(LocalDate.ofYearDay(Integer.parseInt(st[0]),(Integer.parseInt(st[1])*7-5)));
+                     }
+                 }
+                 else {
+                     this.setDatum(LocalDate.of(Integer.parseInt(st[3].substring(0,4)), Integer.parseInt(st[3].substring(5,7)), Integer.parseInt(st[3].substring(8,10))));
+                 }
                  List<Talalat> talalatok=new ArrayList<>();
-                 talalatok.add(new Talalat(14,Integer.parseInt(st[4]),Integer.parseInt(st[5])));
-                 talalatok.add(new Talalat(13,Integer.parseInt(st[6]),Integer.parseInt(st[7])));
-                 talalatok.add(new Talalat(12,Integer.parseInt(st[8]),Integer.parseInt(st[9])));
-                 talalatok.add(new Talalat(11,Integer.parseInt(st[10]),Integer.parseInt(st[11])));
-                 talalatok.add(new Talalat(10,Integer.parseInt(st[12]),Integer.parseInt(st[13])));
+                 String[] st2=st[5].split(" ");
+                 talalatok.add(new Talalat(14,Integer.parseInt(st[4]),Integer.parseInt(st2[0])));
+                 st2=st[7].split(" ");
+                 talalatok.add(new Talalat(13,Integer.parseInt(st[6]),Integer.parseInt(st2[0])));
+                 st2=st[9].split(" ");
+                 talalatok.add(new Talalat(12,Integer.parseInt(st[8]),Integer.parseInt(st2[0])));
+                 st2=st[11].split(" ");
+                 talalatok.add(new Talalat(11,Integer.parseInt(st[10]),Integer.parseInt(st2[0])));
+                 st2=st[13].split(" ");
+                 talalatok.add(new Talalat(10,Integer.parseInt(st[12]),Integer.parseInt(st2[0])));
                  this.setTalalatok(talalatok);
                  List<String> eredmeny=new ArrayList<>();
                  for (int i=14;i<st.length;i++)
